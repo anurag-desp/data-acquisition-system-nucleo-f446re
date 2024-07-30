@@ -12,6 +12,11 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include <stdint.h>
+#include <stdio.h>
+#include <assert.h>
+#include "pll.h"
+#include "stm32f446xx.h"
 
 /**
  * @brief Enumeration of all GPIO pins across all ports

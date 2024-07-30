@@ -5,13 +5,8 @@
  *      Author: Anurag
  */
 
-#include <stdint.h>
-#include <stdio.h>
-#include <assert.h>
-#include "pll.h"
-#include "stm32f446xx.h"
+
 #include "adc.h"
-#include "gpio.h"
 
 #define ASSERT assert
 
@@ -42,7 +37,7 @@ void ADCx_init(ADC_TypeDef* ADCx) {
 }
 
 
-inline uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx) {
+uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -50,7 +45,7 @@ inline uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx) {
 }
 
 
-inline void clear_end_of_conversion_staus(ADC_TypeDef* ADCx) {
+void clear_end_of_conversion_staus(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -58,7 +53,7 @@ inline void clear_end_of_conversion_staus(ADC_TypeDef* ADCx) {
 }
 
 
-inline void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx) {
+void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -69,7 +64,7 @@ inline void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx) {
 }
 
 
-inline void enable_adc_converter(ADC_TypeDef* ADCx) {
+void enable_adc_converter(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -77,7 +72,7 @@ inline void enable_adc_converter(ADC_TypeDef* ADCx) {
 }
 
 
-inline void disable_adc_converter(ADC_TypeDef* ADCx) {
+void disable_adc_converter(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -85,7 +80,7 @@ inline void disable_adc_converter(ADC_TypeDef* ADCx) {
 }
 
 
-inline void set_single_conversion_mode(ADC_TypeDef* ADCx) {
+void set_single_conversion_mode(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -93,7 +88,7 @@ inline void set_single_conversion_mode(ADC_TypeDef* ADCx) {
 }
 
 
-inline void set_continuous_conversion_mode(ADC_TypeDef* ADCx) {
+void set_continuous_conversion_mode(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -101,7 +96,7 @@ inline void set_continuous_conversion_mode(ADC_TypeDef* ADCx) {
 }
 
 
-inline void start_conversion(ADC_TypeDef* ADCx) {
+void start_conversion(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
@@ -109,15 +104,17 @@ inline void start_conversion(ADC_TypeDef* ADCx) {
 }
 
 
-inline uint32_t get_data(ADC_TypeDef* ADCx) {
+uint32_t get_data(ADC_TypeDef* ADCx) {
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
+	while(check_end_of_conversion_status(ADCx) == 0);
+	clear_end_of_conversion_staus(ADCx);
 
-	return ADCx->DR * (0xFFFF);
+	return ADCx->DR & (0xFFF);
 }
 
 
-inline void set_regular_sequence(ADC_TypeDef* ADCx, uint8_t num_of_channels, uint8_t channels[]) {
+void set_regular_sequence(ADC_TypeDef* ADCx, uint8_t num_of_channels, uint8_t channels[]) {
 	ASSERT((num_of_channels > 0) && (num_of_channels < TOTAL_NUM_OF_CHANNELS));
 //	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));

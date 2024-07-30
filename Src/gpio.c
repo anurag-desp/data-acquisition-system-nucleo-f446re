@@ -8,11 +8,6 @@
  * for an STM32F446xx microcontroller.
  */
 
-#include <stdint.h>
-#include <stdio.h>
-#include <assert.h>
-#include "pll.h"
-#include "stm32f446xx.h"
 #include "gpio.h"
 
 #define ASSERT assert
