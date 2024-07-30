@@ -120,11 +120,11 @@ int main (void) {
 		 * [3000, beyond)	-> text color: RED
 		 * */
 		if ((ADC1_digital_value >= 0) && (ADC1_digital_value < 1000)) {
-			printf("%s\t\t%ld\n\r", KGRN, ADC1_digital_value); //
+			printf("%s\t\t%ld\n\r", BHGRN, ADC1_digital_value); //
 		} else if ((ADC1_digital_value >= 1000) && (ADC1_digital_value < 3000)) {
-			printf("%s\t\t%ld\n\r", KBLU, ADC1_digital_value);
+			printf("%s\t\t%ld\n\r", BHBLU, ADC1_digital_value);
 		} else {
-			printf("%s\t\t%ld\n\r", KRED, ADC1_digital_value);
+			printf("%s\t\t%ld\n\r", BHRED, ADC1_digital_value);
 		}
 
 		delay_ms(1000); /* Delay of 1 second after every read cycle */

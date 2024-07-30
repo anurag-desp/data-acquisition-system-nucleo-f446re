@@ -17,14 +17,27 @@
 
 // ANSI escape codes for terminal control and text colors
 #define clearScreen() printf("\033[H\033[J")
-#define KNRM  "\x1B[0m"   // Normal (default) color
-#define KRED  "\x1B[91m"  // Red
-#define KGRN  "\x1B[92m"  // Green
-#define KYEL  "\x1B[93m"  // Yellow
-#define KBLU  "\x1B[94m"  // Blue
-#define KMAG  "\x1B[95m"  // Magenta
-#define KCYN  "\x1B[96m"  // Cyan
-#define KWHT  "\x1B[97m"  // White
+
+// Normal color
+#define KNRM  "\x1B[0m"   	// Normal (default) color
+#define KRED  "\x1B[91m"  	// Red
+#define KGRN  "\x1B[92m"  	// Green
+#define KYEL  "\x1B[93m"  	// Yellow
+#define KBLU  "\x1B[94m"  	// Blue
+#define KMAG  "\x1B[95m"  	// Magenta
+#define KCYN  "\e[0;96m"  	// Cyan
+#define KWHT  "\x1B[97m"  	// White
+
+// Blond-High Intensity
+#define BHBLK "\e[1;90m"
+#define BHRED "\e[1;91m"
+#define BHGRN "\e[1;92m"
+#define BHYEL "\e[1;93m"
+#define BHBLU "\e[1;94m"
+#define BHMAG "\e[1;95m"
+#define BHCYN "\e[1;96m"
+#define BHWHT "\e[1;97m"
+
 
 #define MAX_COLOR_CODE_LENGTH 8
 #define MAX_INPUT_SIZE (0xFFFFFFFF)
