@@ -189,11 +189,11 @@ typedef enum {
 #define AF15                         ((uint8_t)15)
 
 extern void GPIOx_init(uint8_t gpiox_type);
-extern void GPIOx_set_mode(uint8_t pin, uint8_t mode);
-extern void GPIOx_set_output_type(uint8_t pin, uint8_t out_type);
-extern void GPIOx_set_output_speed(uint8_t pin, uint8_t out_speed);
-extern void GPIOx_set_pupd(uint8_t pin, uint8_t pupd);
-extern void GPIOx_set_alternate_function(uint8_t pin, uint8_t alternate_function);
+extern void GPIOx_config_mode(uint8_t pin, uint8_t mode);
+extern void GPIOx_config_output_type(uint8_t pin, uint8_t out_type);
+extern void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed);
+extern void GPIOx_config_pupd(uint8_t pin, uint8_t pupd);
+extern void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function);
 extern void GPIOx_set_odr(uint8_t pin);
 extern void GPIOx_reset_odr(uint8_t pin);
 extern uint8_t GPIOx_get_idr(uint8_t pin);

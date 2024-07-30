@@ -5,15 +5,19 @@
  *      Author: Anurag
  */
 
+
 #include <stdint.h>
+#include <stdio.h>
 #include <assert.h>
+#include "pll.h"
 #include "stm32f446xx.h"
 #include "gpio.h"
 
+#define ASSERT assert
 // used to check if the port being accessed has been initialized or
 // in other words, if the bus for the port as been enabled.
 // initially none of the ports are initialized
-static uint8_t initialized[] = {0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u};
+//static uint8_t initialized[] = {0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u};
 
 static GPIO_TypeDef* get_GPIOx_PORT(uint8_t GPIOx) {
 	ASSERT((GPIOx >= 0u) && (GPIOx < NUM_PORTS));
@@ -71,29 +75,32 @@ void GPIOx_init(uint8_t GPIOx) {
 }
 
 
-void GPIOx_set_mode(uint8_t pin, uint8_t mode) {
+void GPIOx_config_mode(uint8_t pin, uint8_t mode) {
 	ASSERT((mode >= 0) && (mode < 4));
 
 	uint8_t port = get_port_number(pin);
 	uint32_t pin_number = get_pin_number(pin);
 	GPIO_TypeDef* GPIOx = get_GPIOx_PORT(port);
 
+	ASSERT((pin == PA5) && (mode != MODER_INPUT));
+	ASSERT((pin == PC13) && (mode != MODER_OUTPUT));
+
 	GPIOx->MODER &= ~(3 << (pin_number * 2)); // clearning bits before setting them
 
-	if (mode > 0u) {
+	if (mode != MODER_INPUT) {
 		GPIOx->MODER |= ((mode) << (pin_number * 2));
 	}
 }
 
 
-void GPIOx_set_output_type(uint8_t pin, uint8_t out_type) {
+void GPIOx_config_output_type(uint8_t pin, uint8_t out_type) {
 	ASSERT((out_type >= 0) && (out_type < 2));
 
 	uint8_t port = get_port_number(pin);
 	uint32_t pin_number = get_pin_number(pin);
 	GPIO_TypeDef* GPIOx = get_GPIOx_PORT(port);
 
-	if (out_type == 0) {
+	if (out_type == OTYPER_PUSH_PULL) {
 		GPIOx->OTYPER &= ~(1 << pin_number);
 	} else {
 		GPIOx->OTYPER |= (1 << pin_number);
@@ -101,7 +108,7 @@ void GPIOx_set_output_type(uint8_t pin, uint8_t out_type) {
 }
 
 
-void GPIOx_set_output_speed(uint8_t pin, uint8_t out_speed) {
+void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed) {
 	ASSERT((out_speed >= 0) && (out_speed < 4));
 
 	uint8_t port = get_port_number(pin);
@@ -110,13 +117,13 @@ void GPIOx_set_output_speed(uint8_t pin, uint8_t out_speed) {
 
 	GPIOx->OSPEEDR &= ~(3 << (pin_number * 2)); // clearning bits before setting them
 
-	if (out_speed > 0u) {
+	if (out_speed != OSPEEDR_LOW) {
 		GPIOx->OSPEEDR |= ((out_speed) << (pin_number * 2));
 	}
 }
 
 
-void GPIOx_set_pupd(uint8_t pin, uint8_t pupd) {
+void GPIOx_config_pupd(uint8_t pin, uint8_t pupd) {
 		ASSERT((pupd >= 0) && (pupd < 4));
 
 		uint8_t port = get_port_number(pin);
@@ -125,13 +132,13 @@ void GPIOx_set_pupd(uint8_t pin, uint8_t pupd) {
 
 		GPIOx->PUPDR &= ~(3 << (pin_number * 2)); // clearning bits before setting them
 
-		if (pupd > 0u) {
+		if (pupd != PUPDR_NO_PU_PD) {
 			GPIOx->PUPDR |= ((pupd) << (pin_number * 2));
 		}
 }
 
 
-void GPIOx_set_alternate_function(uint8_t pin, uint8_t alternate_function) {
+void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function) {
 	ASSERT((alternate_function >= 0) && (alternate_function < 16));
 
 	uint8_t port = get_port_number(pin);
