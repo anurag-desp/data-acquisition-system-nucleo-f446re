@@ -82,8 +82,8 @@ void GPIOx_config_mode(uint8_t pin, uint8_t mode) {
 	uint32_t pin_number = get_pin_number(pin);
 	GPIO_TypeDef* GPIOx = get_GPIOx_PORT(port);
 
-	ASSERT((pin == PA5) && (mode != MODER_INPUT));
-	ASSERT((pin == PC13) && (mode != MODER_OUTPUT));
+	ASSERT((pin != PA5) || ((pin == PA5) && (mode != MODER_INPUT)));
+	ASSERT((pin != PC13) || ((pin == PC13) && (mode != MODER_OUTPUT)));
 
 	GPIOx->MODER &= ~(3 << (pin_number * 2)); // clearning bits before setting them
 
