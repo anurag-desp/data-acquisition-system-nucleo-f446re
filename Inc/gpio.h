@@ -1,12 +1,23 @@
 /*
  * gpio.h
  *
- *  Created on: Jul 28, 2024
- *      Author: Anurag
+ * Created on: Jul 28, 2024
+ * Author: Anurag
+ *
+ * Documentation: i3ye
+ * This header file defines types and functions for GPIO configuration
+ * and manipulation on an STM32 microcontroller.
  */
 
 #ifndef GPIO_H_
 #define GPIO_H_
+
+
+/**
+ * @brief Enumeration of all GPIO pins across all ports
+ *
+ * Each pin is assigned a unique number from 0 to 127
+ */
 typedef enum {
     PA0  = 0,
     PA1  = 1,
@@ -138,6 +149,11 @@ typedef enum {
     PH15 = 127
 } GPIOx_Pin_Type;
 
+/**
+ * @brief Enumeration of GPIO ports
+ *
+ * Defines the available GPIO ports from A to H
+ */
 typedef enum {
 	PA = 0,
 	PB = 1,
@@ -149,28 +165,34 @@ typedef enum {
 	PH = 7,
 } GPIOx_Ports_Type;
 
+// Constants for GPIO configuration
 #define NUM_PORTS               8u
 #define NUM_PINS_PER_PORT       16u
 #define TOTAL_PINS              128u
 
+// GPIO mode definitions
 #define MODER_INPUT                  (0X00000000)
 #define MODER_OUTPUT                 (GPIO_MODER_MODER0_0)
 #define MODER_AF                     (GPIO_MODER_MODER0_1)
 #define MODER_ANALOG                 (GPIO_MODER_MODER0)
 
+// GPIO output type definitions
 #define OTYPER_PUSH_PULL             (0X00000000)
 #define OTYPER_OPEN_DRAIN            (GPIO_MODER_MODER0_0)
 
+// GPIO output speed definitions
 #define OSPEEDR_LOW                  (0X00000000)
 #define OSPEEDR_MEDIUM               (GPIO_MODER_MODER0_0)
 #define OSPEEDR_FAST                 (GPIO_MODER_MODER0_1)
 #define OSPEEDR_HIGH                 (GPIO_MODER_MODER0)
 
+// GPIO pull-up/pull-down definitions
 #define PUPDR_NO_PU_PD               (0X00000000)
 #define PUPDR_PU                     (GPIO_MODER_MODER0_0)
 #define PUPDR_PD                     (GPIO_MODER_MODER0_1)
 #define PUPDR_RESERVED               (GPIO_MODER_MODER0)
 
+// Alternate function definitions
 #define AF0                          ((uint8_t)0)
 #define AF1                          ((uint8_t)1)
 #define AF2                          ((uint8_t)2)
@@ -188,14 +210,67 @@ typedef enum {
 #define AF14                         ((uint8_t)14)
 #define AF15                         ((uint8_t)15)
 
+// Function prototypes for GPIO operations
+
+
+/**
+ * @brief Initialize the specified GPIO port
+ * @param gpiox_type The GPIO port to initialize
+ */
 extern void GPIOx_init(uint8_t gpiox_type);
+
+/**
+ * @brief Configure the mode of a GPIO pin
+ * @param pin The pin to configure
+ * @param mode The mode to set (input, output, alternate function, or analog)
+ */
 extern void GPIOx_config_mode(uint8_t pin, uint8_t mode);
+
+/**
+ * @brief Configure the output type of a GPIO pin
+ * @param pin The pin to configure
+ * @param out_type The output type (push-pull or open-drain)
+ */
 extern void GPIOx_config_output_type(uint8_t pin, uint8_t out_type);
+
+/**
+ * @brief Configure the output speed of a GPIO pin
+ * @param pin The pin to configure
+ * @param out_speed The output speed (low, medium, fast, or high)
+ */
 extern void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed);
+
+/**
+ * @brief Configure the pull-up/pull-down of a GPIO pin
+ * @param pin The pin to configure
+ * @param pupd The pull-up/pull-down configuration
+ */
 extern void GPIOx_config_pupd(uint8_t pin, uint8_t pupd);
+
+/**
+ * @brief Configure the alternate function of a GPIO pin
+ * @param pin The pin to configure
+ * @param alternate_function The alternate function to set
+ */
 extern void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function);
+
+/**
+ * @brief Set the output data register (ODR) of a GPIO pin
+ * @param pin The pin to set
+ */
 extern void GPIOx_set_odr(uint8_t pin);
+
+/**
+ * @brief Reset the output data register (ODR) of a GPIO pin
+ * @param pin The pin to reset
+ */
 extern void GPIOx_reset_odr(uint8_t pin);
+
+/**
+ * @brief Get the input data register (IDR) value of a GPIO pin
+ * @param pin The pin to read
+ * @return The input state of the pin
+ */
 extern uint8_t GPIOx_get_idr(uint8_t pin);
 
 #endif /* GPIO_H_ */
