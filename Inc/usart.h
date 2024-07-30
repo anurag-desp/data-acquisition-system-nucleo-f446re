@@ -2,7 +2,7 @@
  * usart.h
  *
  * Created on: Jul 30, 2024
- * Author: i3ye
+ * Author: Anurag & Aayush
  *
  * This header file declares the interface for UART2 configuration and communication
  * functions for an STM32 microcontroller.

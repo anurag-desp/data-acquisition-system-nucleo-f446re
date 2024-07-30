@@ -2,7 +2,7 @@
  * adc.c
  *
  *  Created on: Jul 28, 2024
- *      Author: Anurag
+ *      Author: Anurag & Aayush
  */
 
 
@@ -18,7 +18,6 @@ volatile uint32_t ADC3_digital_value = 0;
 
 
 void ADCx_init(ADC_TypeDef* ADCx) {
-//	ASSERT((ADCx >= 0u) && (ADCx < NUM_ADC_PORTS));
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 	uint8_t index = (ADCx == ADC1)? ADC_PORT_1: (ADCx == ADC2)? ADC_PORT_2: ADC_PORT_3;
 
@@ -32,7 +31,6 @@ void ADCx_init(ADC_TypeDef* ADCx) {
 
 
 uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	return (ADCx->SR & ADC_SR_EOC)? 1: 0;
@@ -40,7 +38,6 @@ uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx) {
 
 
 void clear_end_of_conversion_staus(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->SR |= ~ADC_SR_EOC;
@@ -48,7 +45,6 @@ void clear_end_of_conversion_staus(ADC_TypeDef* ADCx) {
 
 
 void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	__disable_irq();
@@ -59,7 +55,6 @@ void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx) {
 
 
 void enable_adc_converter(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->CR2 |= ADC_CR2_ADON;
@@ -67,7 +62,6 @@ void enable_adc_converter(ADC_TypeDef* ADCx) {
 
 
 void disable_adc_converter(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->CR2 &= ~ADC_CR2_ADON;
@@ -75,7 +69,6 @@ void disable_adc_converter(ADC_TypeDef* ADCx) {
 
 
 void set_single_conversion_mode(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->CR2 &= ~ADC_CR2_CONT;
@@ -83,7 +76,6 @@ void set_single_conversion_mode(ADC_TypeDef* ADCx) {
 
 
 void set_continuous_conversion_mode(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->CR2 |= ADC_CR2_CONT;
@@ -91,7 +83,6 @@ void set_continuous_conversion_mode(ADC_TypeDef* ADCx) {
 
 
 void start_conversion(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->CR2 |= ADC_CR2_SWSTART;
@@ -99,7 +90,6 @@ void start_conversion(ADC_TypeDef* ADCx) {
 
 
 uint32_t get_data(ADC_TypeDef* ADCx) {
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 	while(check_end_of_conversion_status(ADCx) == 0);
 	clear_end_of_conversion_staus(ADCx);
@@ -110,7 +100,6 @@ uint32_t get_data(ADC_TypeDef* ADCx) {
 
 void set_regular_sequence(ADC_TypeDef* ADCx, uint8_t num_of_channels, uint8_t channels[]) {
 	ASSERT((num_of_channels > 0) && (num_of_channels < TOTAL_NUM_OF_CHANNELS));
-//	ADC_TypeDef* ADCx = get_ADCx_PORT(port);
 	ASSERT((ADCx == ADC1) || (ADCx == ADC2) || (ADCx == ADC3));
 
 	ADCx->SQR1 = 0;
@@ -141,10 +130,8 @@ void set_regular_sequence(ADC_TypeDef* ADCx, uint8_t num_of_channels, uint8_t ch
 
 
 void ADC_IRQHandler(void) {
-	printf("ADC_IRH\n\r");
 	if (check_end_of_conversion_status(ADC1)) {
 		clear_end_of_conversion_staus(ADC1);
-		printf("ADC1\n\r");
 		ADC1_digital_value = ADC1->DR & (0xFFF);
 		return;
 	}
