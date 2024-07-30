@@ -8,19 +8,13 @@
 
 #include "adc.h"
 
+
 #define ASSERT assert
 
-//static ADC_TypeDef* get_ADCx_PORT(uint8_t ADCx) {
-//	ASSERT((ADCx >= 0u) && (ADCx < NUM_ADC_PORTS));
-//
-//	ADC_TypeDef* ADCx_PORTS[] = {
-//			ADC1,
-//			ADC2,
-//			ADC3,
-//	};
-//
-//	return ADCx_PORTS[ADCx];
-//}
+volatile uint32_t ADC1_digital_value = 0;
+volatile uint32_t ADC2_digital_value = 0;
+volatile uint32_t ADC3_digital_value = 0;
+
 
 
 void ADCx_init(ADC_TypeDef* ADCx) {
@@ -110,7 +104,7 @@ uint32_t get_data(ADC_TypeDef* ADCx) {
 	while(check_end_of_conversion_status(ADCx) == 0);
 	clear_end_of_conversion_staus(ADCx);
 
-	return ADCx->DR & (0xFFF);
+	return (ADCx->DR & (0xFFF));
 }
 
 
@@ -146,28 +140,24 @@ void set_regular_sequence(ADC_TypeDef* ADCx, uint8_t num_of_channels, uint8_t ch
 }
 
 
-//void ADC_IRQHandler(void) {
-//	volatile uint32_t digital_value = 0u;
-//	ADC1->SR &= ~ADC_SR_EOC;
-//	digital_value = ADC1->DR & (0xFFF);
-//	clearScreen();
-//	printf("\r%s----------------------------\n", KCYN);
-//	printf("\r%s|                          |\n", KCYN);
-//	printf("\r%s| %sA N A L O G\t V A L U E %s|\n", KCYN, KMAG, KCYN);
-//	printf("\r%s|                          |\n", KCYN);
-//	printf("\r%s|--------------------------|\n", KCYN);
-//	printf("\r%s|                          |\n", KCYN);
-//	printf("\r%s|            %s%4ld          %s|\n", KCYN, KBLU, digital_value, KCYN);
-//	printf("\r%s|                          |\n", KCYN);
-//	printf("\r%s|__________________________|\n", KCYN);
-//
-//	GPIOB->ODR &= ~(1 << 12);
-//	GPIOA->ODR |= (1 << 11);
-//
-//	if(last_digital_value != digital_value) {
-//		GPIOA->ODR |= (1 << 12);
-//		last_digital_value = digital_value;
-//	} else {
-//		GPIOA->ODR &= ~(1 << 12);
-//	}
-//}
+void ADC_IRQHandler(void) {
+	printf("ADC_IRH\n\r");
+	if (check_end_of_conversion_status(ADC1)) {
+		clear_end_of_conversion_staus(ADC1);
+		printf("ADC1\n\r");
+		ADC1_digital_value = ADC1->DR & (0xFFF);
+		return;
+	}
+
+	if (check_end_of_conversion_status(ADC2)) {
+		clear_end_of_conversion_staus(ADC2);
+		ADC2_digital_value = ADC2->DR & (0xFFF);
+		return;
+	}
+
+	if (check_end_of_conversion_status(ADC3)) {
+		clear_end_of_conversion_staus(ADC3);
+		ADC3_digital_value = ADC3->DR & (0xFFF);
+		return;
+	}
+}

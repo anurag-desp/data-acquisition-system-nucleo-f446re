@@ -183,19 +183,19 @@ typedef enum {
 
 // GPIO output type definitions
 #define OTYPER_PUSH_PULL             (0X00000000)
-#define OTYPER_OPEN_DRAIN            (GPIO_MODER_MODER0_0)
+#define OTYPER_OPEN_DRAIN            (GPIO_OTYPER_OT_0)
 
 // GPIO output speed definitions
 #define OSPEEDR_LOW                  (0X00000000)
-#define OSPEEDR_MEDIUM               (GPIO_MODER_MODER0_0)
-#define OSPEEDR_FAST                 (GPIO_MODER_MODER0_1)
-#define OSPEEDR_HIGH                 (GPIO_MODER_MODER0)
+#define OSPEEDR_MEDIUM               (GPIO_OSPEEDER_OSPEEDR0_0)
+#define OSPEEDR_FAST                 (GPIO_OSPEEDER_OSPEEDR0_1)
+#define OSPEEDR_HIGH                 (GPIO_OSPEEDER_OSPEEDR0)
 
 // GPIO pull-up/pull-down definitions
 #define PUPDR_NO_PU_PD               (0X00000000)
-#define PUPDR_PU                     (GPIO_MODER_MODER0_0)
-#define PUPDR_PD                     (GPIO_MODER_MODER0_1)
-#define PUPDR_RESERVED               (GPIO_MODER_MODER0)
+#define PUPDR_PU                     (GPIO_PUPDR_PUPDR0_0)
+#define PUPDR_PD                     (GPIO_PUPDR_PUPDR0_1)
+#define PUPDR_RESERVED               (GPIO_PUPDR_PUPDR0)
 
 // Alternate function definitions
 #define AF0                          ((uint8_t)0)

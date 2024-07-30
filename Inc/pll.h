@@ -25,5 +25,4 @@ extern void SysTick_Handler();
 extern void delay_ms(uint32_t ms);
 extern uint32_t getMillis();
 
-
 #endif /* PLL_H_ */

@@ -24,7 +24,11 @@ typedef enum {
 
 } ADC_Port_Type;
 
-extern void ADC_init(ADC_TypeDef* ADCx);
+extern volatile uint32_t ADC1_digital_value;
+extern volatile uint32_t ADC2_digital_value;
+extern volatile uint32_t ADC3_digital_value;
+
+extern void ADCx_init(ADC_TypeDef* ADCx);
 extern  uint8_t check_end_of_conversion_status(ADC_TypeDef* ADCx);
 extern  void clear_end_of_conversion_staus(ADC_TypeDef* ADCx);
 extern  void enable_interrupt_on_end_of_conversion(ADC_TypeDef* ADCx);
