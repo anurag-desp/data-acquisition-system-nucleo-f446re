@@ -3,7 +3,6 @@
  *
  * Created on: Jul 28, 2024
  * Author: Anurag & Aayush
- *
  * This file implements GPIO configuration and manipulation functions
  * for an STM32F446xx microcontroller.
  */

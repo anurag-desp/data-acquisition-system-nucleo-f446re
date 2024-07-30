@@ -2,7 +2,7 @@
  * usart.c
  *
  * Created on: Jul 30, 2024
- * Author: i3ye
+ * Author: Anurag & Aayush
  *
  * This file contains the implementation of UART2 configuration and communication
  * functions for an STM32 microcontroller.
@@ -28,14 +28,6 @@ void UART2_init(void) {
     GPIOx_config_output_speed(PA3, OSPEEDR_HIGH);
     GPIOx_config_alternate_function(PA2, AF7);
     GPIOx_config_alternate_function(PA3, AF7);
-
-    // Configure UART2
-    USART2->CR1 = 0x00; // Reset the control register
-    USART2->CR1 |= USART_CR1_UE; // Enable UART
-    USART2->CR1 &= ~USART_CR1_M; // Set to 8 data bits
-    USART2->BRR = (7 << 0) | (24 << 4); // Set baud rate to 115200 (assuming PCLK1 at 45MHz)
-    USART2->CR1 |= (1 << 2); // Enable receiver
-    USART2->CR1 |= (1 << 3); // Enable transmitter
 }
 
 /**
