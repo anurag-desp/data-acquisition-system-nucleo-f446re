@@ -32,6 +32,34 @@
 #endif
 
 
+void print_table_in_serial_monitor(void) {
+	printf("\r%s%-9s\t\t\t%s.____________________________.\n", BHRED, "Max: 4095", KCYN);
+	printf("\r%s%-9s\t\t\t%s|                            |\n", BHGRN, "Min: 0", KCYN);
+	printf("\r%-9s\t\t\t%s| %sD I G I T A L    V A L U E %s|\n", " ", KCYN, BHWHT, KCYN);
+	printf("\r%-9s\t\t\t%s|                            |\n", " ", KCYN);
+	printf("\r%-9s\t\t\t%s|----------------------------|\n", " ", KCYN);
+	printf("\r%-9s\t\t\t%s|                            |\n", " ", KCYN);
+
+	// decide text color
+	/*
+	 * when data in range
+	 * [0, 1000)		-> text color: GREEN
+	 * [1000, 3000) 	-> text color: BLUE
+	 * [3000, beyond)	-> text color: RED
+	 * */
+	if ((ADC1_digital_value >= 0) && (ADC1_digital_value < 1000)) {
+		printf("\r%-9s\t\t\t%s|            %s%-4ld            %s|\n", " ", KCYN, BHGRN, ADC1_digital_value, KCYN);
+	} else if ((ADC1_digital_value >= 1000) && (ADC1_digital_value < 3000)) {
+		printf("\r%-9s\t\t\t%s|            %s%-4ld            %s|\n", " ", KCYN, BHBLU, ADC1_digital_value, KCYN);
+	} else {
+		printf("\r%-9s\t\t\t%s|            %s%-4ld            %s|\n", " ", KCYN, BHRED, ADC1_digital_value, KCYN);
+	}
+
+	printf("\r%-9s\t\t\t%s|                            |\n"," ", KCYN);
+	printf("\r%-9s\t\t\t%s|____________________________|\n"," ", KCYN);
+}
+
+
 int main (void) {
 
 	// initializing PLL and SysTick
@@ -113,20 +141,9 @@ int main (void) {
 
 		clearScreen();	/* Clear serial port terminal emulator(GTKTERM) screen */
 
-		// decide text color
-		/*
-		 * when data in range
-		 * [0, 1000)		-> text color: GREEN
-		 * [1000, 3000) 	-> text color: BLUE
-		 * [3000, beyond)	-> text color: RED
-		 * */
-		if ((ADC1_digital_value >= 0) && (ADC1_digital_value < 1000)) {
-			printf("%s\t\t%ld\n\r", BHGRN, ADC1_digital_value); //
-		} else if ((ADC1_digital_value >= 1000) && (ADC1_digital_value < 3000)) {
-			printf("%s\t\t%ld\n\r", BHBLU, ADC1_digital_value);
-		} else {
-			printf("%s\t\t%ld\n\r", BHRED, ADC1_digital_value);
-		}
+
+		// print table
+		print_table_in_serial_monitor();
 
 		delay_ms(1000); /* Delay of 1 second after every read cycle */
 	}
@@ -145,6 +162,6 @@ void tx_send(uint8_t c) {
 /* to send data to GTKTERM via the printf() statement */
 int __io_putchar(int ch){
  tx_send(ch); // USART2_Transmit function
- for(uint32_t i=0;i<1600000;i++);
+// for(uint32_t i=0;i<1000;i++);
  return ch;
 }

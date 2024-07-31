@@ -1,6 +1,7 @@
 "./Src/adc.o"
 "./Src/gpio.o"
 "./Src/main.o"
+"./Src/pll.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Src/usart.o"
