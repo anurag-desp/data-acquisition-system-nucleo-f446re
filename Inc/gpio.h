@@ -1,8 +1,9 @@
-/*
- * gpio.h
+/**
+ * @file: gpio.h
  *
- * Created on: Jul 28, 2024
- * Author: Anurag
+ * @date: Jul 29, 2024
+ * @author: Anurag
+ * @documentation: Aayush
  *
  * Documentation: i3ye
  * This header file defines types and functions for GPIO configuration
@@ -221,61 +222,61 @@ typedef enum {
 /**
  * @brief Initialize the specified GPIO port
  * @param gpiox_type The GPIO port to initialize
- */
+*/
 extern void GPIOx_init(uint8_t gpiox_type);
 
 /**
  * @brief Configure the mode of a GPIO pin
  * @param pin The pin to configure
  * @param mode The mode to set (input, output, alternate function, or analog)
- */
+*/
 extern void GPIOx_config_mode(uint8_t pin, uint8_t mode);
 
 /**
  * @brief Configure the output type of a GPIO pin
  * @param pin The pin to configure
  * @param out_type The output type (push-pull or open-drain)
- */
+*/
 extern void GPIOx_config_output_type(uint8_t pin, uint8_t out_type);
 
 /**
  * @brief Configure the output speed of a GPIO pin
  * @param pin The pin to configure
  * @param out_speed The output speed (low, medium, fast, or high)
- */
+*/
 extern void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed);
 
 /**
  * @brief Configure the pull-up/pull-down of a GPIO pin
  * @param pin The pin to configure
  * @param pupd The pull-up/pull-down configuration
- */
+*/
 extern void GPIOx_config_pupd(uint8_t pin, uint8_t pupd);
 
 /**
  * @brief Configure the alternate function of a GPIO pin
  * @param pin The pin to configure
  * @param alternate_function The alternate function to set
- */
+*/
 extern void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function);
 
 /**
  * @brief Set the output data register (ODR) of a GPIO pin
  * @param pin The pin to set
- */
+*/
 extern void GPIOx_set_odr(uint8_t pin);
 
 /**
  * @brief Reset the output data register (ODR) of a GPIO pin
  * @param pin The pin to reset
- */
+*/
 extern void GPIOx_reset_odr(uint8_t pin);
 
 /**
  * @brief Get the input data register (IDR) value of a GPIO pin
  * @param pin The pin to read
  * @return The input state of the pin
- */
+*/
 extern uint8_t GPIOx_get_idr(uint8_t pin);
 
 #endif /* GPIO_H_ */

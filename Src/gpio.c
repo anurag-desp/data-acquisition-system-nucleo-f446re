@@ -1,8 +1,9 @@
-/*
- * gpio.c
+/**
+ * @file: gpio.c
  *
- * Created on: Jul 28, 2024
- * Author: Anurag & Aayush
+ * @date: Jul 28, 2024
+ * @author: Anurag
+ * @documentation: Aayush
  * This file implements GPIO configuration and manipulation functions
  * for an STM32F446xx microcontroller.
  */
@@ -49,7 +50,7 @@ static uint8_t is_moder_in_af_moder(GPIO_TypeDef* GPIOx, uint8_t pin_number) {
 /**
  * @brief Initialize the specified GPIO port
  * @param GPIOx The GPIO port to initialize
- */
+*/
 void GPIOx_init(uint8_t GPIOx) {
     ASSERT((GPIOx >= 0u) && (GPIOx < NUM_PORTS));
 
@@ -66,7 +67,7 @@ void GPIOx_init(uint8_t GPIOx) {
  * @brief Configure the mode of a GPIO pin
  * @param pin The pin to configure
  * @param mode The mode to set (input, output, alternate function, or analog)
- */
+*/
 void GPIOx_config_mode(uint8_t pin, uint8_t mode) {
     ASSERT((mode >= 0) && (mode < 4));
 
@@ -88,7 +89,7 @@ void GPIOx_config_mode(uint8_t pin, uint8_t mode) {
  * @brief Configure the output type of a GPIO pin
  * @param pin The pin to configure
  * @param out_type The output type (push-pull or open-drain)
- */
+*/
 void GPIOx_config_output_type(uint8_t pin, uint8_t out_type) {
     ASSERT((out_type >= 0) && (out_type < 2));
 
@@ -107,7 +108,7 @@ void GPIOx_config_output_type(uint8_t pin, uint8_t out_type) {
  * @brief Configure the output speed of a GPIO pin
  * @param pin The pin to configure
  * @param out_speed The output speed (low, medium, fast, or high)
- */
+*/
 void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed) {
     ASSERT((out_speed >= 0) && (out_speed < 4));
 
@@ -126,7 +127,7 @@ void GPIOx_config_output_speed(uint8_t pin, uint8_t out_speed) {
  * @brief Configure the pull-up/pull-down of a GPIO pin
  * @param pin The pin to configure
  * @param pupd The pull-up/pull-down configuration
- */
+*/
 void GPIOx_config_pupd(uint8_t pin, uint8_t pupd) {
     ASSERT((pupd >= 0) && (pupd < 4));
 
@@ -145,7 +146,7 @@ void GPIOx_config_pupd(uint8_t pin, uint8_t pupd) {
  * @brief Configure the alternate function of a GPIO pin
  * @param pin The pin to configure
  * @param alternate_function The alternate function to set
- */
+*/
 void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function) {
     ASSERT((alternate_function >= 0) && (alternate_function < 16));
 
@@ -165,7 +166,7 @@ void GPIOx_config_alternate_function(uint8_t pin, uint8_t alternate_function) {
 /**
  * @brief Set the output data register (ODR) of a GPIO pin
  * @param pin The pin to set
- */
+*/
 void GPIOx_set_odr(uint8_t pin) {
     uint8_t port = get_port_number(pin);
     uint8_t pin_number = get_pin_number(pin);
@@ -177,7 +178,7 @@ void GPIOx_set_odr(uint8_t pin) {
 /**
  * @brief Reset the output data register (ODR) of a GPIO pin
  * @param pin The pin to reset
- */
+*/
 void GPIOx_reset_odr(uint8_t pin) {
     uint8_t port = get_port_number(pin);
     uint8_t pin_number = get_pin_number(pin);
@@ -190,7 +191,7 @@ void GPIOx_reset_odr(uint8_t pin) {
  * @brief Get the input data register (IDR) value of a GPIO pin
  * @param pin The pin to read
  * @return The input state of the pin (0 or 1)
- */
+*/
 uint8_t GPIOx_get_idr(uint8_t pin) {
     uint8_t port = get_port_number(pin);
     uint8_t pin_number = get_pin_number(pin);

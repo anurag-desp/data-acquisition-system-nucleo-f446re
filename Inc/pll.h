@@ -1,8 +1,8 @@
-/*
- * pll.h
+/**
+ * @file pll.h
  *
- *  Created on: Jul 24, 2024
- *      Author: anurag
+ * @date: Jul 24, 2024
+ * @author: Anurag
  */
 
 #ifndef PLL_H_

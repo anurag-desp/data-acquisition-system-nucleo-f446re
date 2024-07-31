@@ -1,12 +1,13 @@
-/*
- * usart.h
+/**
+ * @file: usart.h
  *
- * Created on: Jul 30, 2024
- * Author: Anurag & Aayush
+ * @date: Jul 29, 2024
+ * @author: Anurag
+ * @documentation: Aayush
  *
  * This header file declares the interface for UART2 configuration and communication
  * functions for an STM32 microcontroller.
- */
+*/
 
 #ifndef USART_H_
 #define USART_H_
@@ -28,7 +29,7 @@
 #define KCYN  "\e[0;96m"  	// Cyan
 #define KWHT  "\x1B[97m"  	// White
 
-// Blond-High Intensity
+// Bold-High Intensity
 #define BHBLK "\e[1;90m"
 #define BHRED "\e[1;91m"
 #define BHGRN "\e[1;92m"
@@ -52,68 +53,68 @@
 
 /**
  * @brief Initialize UART2
- */
+*/
 extern void UART2_init(void);
 
 /**
  * @brief Clear USART2 CR1 register
- */
+*/
 extern void USART2_clear_CR1(void);
 
 /**
  * @brief Enable USART2
- */
+*/
 extern void USART2_enable(void);
 
 /**
  * @brief Set USART2 word length
  * @param length Word length (8 or 9 bits)
- */
+*/
 extern void USART2_set_word_length(uint8_t length);
 
 /**
  * @brief Enable USART2 transmitter
- */
+*/
 extern void USART2_enable_transmitter(void);
 
 /**
  * @brief Enable USART2 receiver
- */
+*/
 extern void USART2_enable_receiver(void);
 
 /**
  * @brief Set default baud rate for USART2
- */
+*/
 extern void USART2_set_default_baud_rate(void);
 
 /**
  * @brief Quick default configuration for USART2
- */
+*/
 extern void USART2_quick_default_config(void);
 
 /**
  * @brief Sends a single character over UART2
  * @param c The character to send (as a 32-bit unsigned integer)
- */
+*/
 void UART2_sendChar(uint32_t c);
 
 /**
  * @brief Sends a string over UART2
  * @param string Pointer to the null-terminated string to send
- */
+*/
 void UART2_sendString(char *string);
 
 /**
  * @brief Receives a single character from UART2
  * @return The received character as an 8-bit unsigned integer
- */
+*/
 uint8_t UART2_getchar(void);
 
 /**
  * @brief Receives a string from UART2
  * @param string Array to store the received string
  * @param input_size Maximum size of the input string
- */
+*/
 void UART2_getString(char string[], uint32_t input_size);
 
 #endif /* USART_H_ */
