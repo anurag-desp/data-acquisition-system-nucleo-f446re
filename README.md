@@ -12,4 +12,4 @@
 ### Output Images:
 <p align="center" width="100%"><img width="33%" src="./img/circuit-2.jpeg"></p>
 <p align="center" width="100%"><img width="33%" src="./img/circuit-2.jpeg"></p>
-<p align="center" width="100%"><img width="33%" src="./img/gtkterm_output.png"></p>
+<p align="center" width="100%"><img width="50%" src="./img/gtkterm_output.png"></p>
