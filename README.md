@@ -10,6 +10,6 @@
 ---
 
 ### Output Images:
-- ![Circit-2](./img/circuit-2.jpeg)
-- ![Circuit-1](./img/circuit-1.jpeg)
-- ![Output](./img/gtkterm_output.png)
+<p align="center" width="100%"><img width="33%" src="./img/circuit-2.jpeg"></p>
+<p align="center" width="100%"><img width="33%" src="./img/circuit-2.jpeg"></p>
+<p align="center" width="100%"><img width="33%" src="./img/gtkterm_output.png"></p>
